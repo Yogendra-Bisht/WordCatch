@@ -1,0 +1,36 @@
+services:
+
+  # ── MongoDB (local dev only — swap MONGO_URI for Atlas in production) ───
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"          # exposed for local Compass/mongosh access
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── WordCatch API ────────────────────────────────────────────────────────
+  api:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    env_file: .env          # copy .env.example → .env and fill in values
+    environment:
+      MONGO_URI: mongodb://mongo:27017/wordcatch  # overrides .env for docker networking
+    ports:
+      - "3000:3000"         # direct access for local dev (nginx sits in front in prod)
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  mongo_data:

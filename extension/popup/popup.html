@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordCatch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="logo">
+      <img src="../icons/48.png" alt="" class="logo-icon" width="24" height="24" />
+      <span class="logo-text">WordCatch</span>
+    </div>
+    <div id="auth-status" class="auth-badge"></div>
+  </header>
+
+  <!-- ── Auth Panel (shown when logged out) ────────────────────────────── -->
+  <section id="auth-panel" class="panel hidden">
+    <p class="panel-hint">Sign in to start capturing words.</p>
+
+    <div class="tab-row">
+      <button class="tab-btn active" id="tab-login"    data-tab="login">Sign in</button>
+      <button class="tab-btn"        id="tab-register" data-tab="register">Register</button>
+    </div>
+
+    <form id="auth-form" autocomplete="on" novalidate>
+      <div class="field">
+        <label for="input-email">Email</label>
+        <input id="input-email" type="email" name="email"
+               autocomplete="email" placeholder="you@example.com" required />
+      </div>
+      <div class="field">
+        <label for="input-password">Password</label>
+        <input id="input-password" type="password" name="password"
+               autocomplete="current-password" placeholder="••••••••" required />
+      </div>
+      <div id="auth-error" class="form-error hidden"></div>
+      <button type="submit" id="auth-submit" class="btn btn-primary">Sign in</button>
+    </form>
+  </section>
+
+  <!-- ── Vocab Panel (shown when logged in) ────────────────────────────── -->
+  <section id="vocab-panel" class="panel hidden">
+
+    <!-- Date filter row -->
+    <div class="filter-row">
+      <div class="filter-group">
+        <label for="filter-from">From</label>
+        <input id="filter-from" type="date" />
+      </div>
+      <div class="filter-group">
+        <label for="filter-to">To</label>
+        <input id="filter-to" type="date" />
+      </div>
+      <button id="filter-apply" class="btn btn-sm">Filter</button>
+      <button id="filter-clear" class="btn btn-sm btn-ghost">Clear</button>
+    </div>
+
+    <!-- Vocab list -->
+    <div id="vocab-list" class="vocab-list">
+      <div class="loading-state">
+        <span class="spinner"></span> Loading…
+      </div>
+    </div>
+
+    <!-- Footer actions -->
+    <div class="panel-footer">
+      <button id="btn-logout" class="btn btn-ghost btn-sm">Sign out</button>
+    </div>
+
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>
