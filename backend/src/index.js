@@ -20,6 +20,7 @@ app.set('trust proxy', 1);
 // In production, EXTENSION_ORIGIN should be chrome-extension://<id>
 // In development, we allow all origins so curl / Postman work without friction.
 const allowedOrigin = process.env.EXTENSION_ORIGIN || '*';
+
 app.use(
   cors({
     origin: allowedOrigin,
@@ -72,16 +73,19 @@ app.use((err, _req, res, _next) => {
 });
 
 // ── Start ──────────────────────────────────────────────────────────────────
-(async () => {
-  try {
-    await connectDB();
-    app.listen(PORT, () => {
-      console.log(`WordCatch API running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error('Failed to start server:', err.message);
-    process.exit(1);
-  }
-})();
+// Only start listening when not in test mode (supertest manages its own port)
+if (process.env.NODE_ENV !== 'test') {
+  (async () => {
+    try {
+      await connectDB();
+      app.listen(PORT, () => {
+        console.log(`WordCatch API running on port ${PORT}`);
+      });
+    } catch (err) {
+      console.error('Failed to start server:', err.message);
+      process.exit(1);
+    }
+  })();
+}
 
 module.exports = app; // exported for supertest in tests
