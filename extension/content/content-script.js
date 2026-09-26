@@ -307,15 +307,24 @@ async function handleSave(data, capturedForm, sentence, anchorRect) {
 
   const dateKey = getDateKey();
 
-  const response = await chrome.runtime.sendMessage({
-    type:            'SAVE',
-    word:            capturedForm,
-    wordId:          data.wordId,
-    capturedForm,
-    sentence,
-    url:             window.location.href,
-    dateKey,
-  });
+  let response;
+  try {
+    response = await chrome.runtime.sendMessage({
+      type:            'SAVE',
+      word:            capturedForm,
+      wordId:          data.wordId,
+      capturedForm,
+      sentence,
+      url:             window.location.href,
+      dateKey,
+    });
+  } catch (e) {
+    status.textContent = 'Extension context disconnected. Please refresh the web page.';
+    status.className   = 'wc-status wc-err';
+    saveBtn.disabled   = false;
+    saveBtn.textContent = 'Retry save';
+    return;
+  }
 
   if (response?.ok) {
     saveBtn.textContent = '✓ Saved';
@@ -368,12 +377,19 @@ document.addEventListener('dblclick', async (e) => {
   showLoadingTooltip(word, anchorRect);
 
   // FR-1.6 — delegate to service worker, no direct fetch here
-  const response = await chrome.runtime.sendMessage({
-    type:     'LOOKUP',
-    word,
-    sentence,
-    url:      window.location.href,
-  });
+  let response;
+  try {
+    response = await chrome.runtime.sendMessage({
+      type:     'LOOKUP',
+      word,
+      sentence,
+      url:      window.location.href,
+    });
+  } catch (err) {
+    if (currentTooltip !== word) return;
+    showErrorTooltip('Extension context disconnected. Please refresh this page (F5).');
+    return;
+  }
 
   // Guard against stale response if user double-clicked again
   if (currentTooltip !== word) return;
@@ -382,7 +398,7 @@ document.addEventListener('dblclick', async (e) => {
     showDefinitionTooltip(response.data, word, sentence, anchorRect);
   } else {
     const msg = response?.error?.code === 'NO_TOKEN'
-      ? 'Sign in to WordCatch to look up words.'
+      ? 'Sign in to WordCatch via extension popup to look up words.'
       : (response?.error?.message ?? 'Lookup failed.');
     showErrorTooltip(msg);
   }
