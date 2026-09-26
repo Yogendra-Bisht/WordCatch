@@ -354,53 +354,57 @@ function escHtml(str) {
 // ── Double-click handler ──────────────────────────────────────────────────────
 
 document.addEventListener('dblclick', async (e) => {
-  // FR-1.5 — ignore editable regions
-  if (isEditableTarget(e.target)) return;
-
-  const selection = window.getSelection();
-  if (!selection || selection.isCollapsed) return;
-
-  const raw = selection.toString().trim();
-
-  // FR-1.3 — single word only (no spaces, not empty)
-  if (!raw || /\s/.test(raw)) return;
-
-  // Strip leading/trailing punctuation (FR-1.2)
-  const word = raw.replace(/^[^a-zA-Z]+|[^a-zA-Z]+$/g, '');
-  if (!word) return;
-
-  const range    = selection.getRangeAt(0);
-  const anchorRect = range.getBoundingClientRect();
-  const sentence = extractSentence(e.target);
-
-  currentTooltip = word;
-  showLoadingTooltip(word, anchorRect);
-
-  // FR-1.6 — delegate to service worker, no direct fetch here
-  let response;
   try {
-    response = await chrome.runtime.sendMessage({
-      type:     'LOOKUP',
-      word,
-      sentence,
-      url:      window.location.href,
-    });
-  } catch (err) {
+    // FR-1.5 — ignore editable regions
+    if (isEditableTarget(e.target)) return;
+
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed || selection.rangeCount === 0) return;
+
+    const raw = selection.toString().trim();
+
+    // FR-1.3 — single word only (no spaces, not empty)
+    if (!raw || /\s/.test(raw)) return;
+
+    // Strip leading/trailing punctuation (FR-1.2)
+    const word = raw.replace(/^[^a-zA-Z]+|[^a-zA-Z]+$/g, '');
+    if (!word) return;
+
+    const range    = selection.getRangeAt(0);
+    const anchorRect = range.getBoundingClientRect();
+    const sentence = extractSentence(e.target);
+
+    currentTooltip = word;
+    showLoadingTooltip(word, anchorRect);
+
+    // FR-1.6 — delegate to service worker, no direct fetch here
+    let response;
+    try {
+      response = await chrome.runtime.sendMessage({
+        type:     'LOOKUP',
+        word,
+        sentence,
+        url:      window.location.href,
+      });
+    } catch (err) {
+      if (currentTooltip !== word) return;
+      showErrorTooltip('Extension context disconnected. Please refresh this page (F5).');
+      return;
+    }
+
+    // Guard against stale response if user double-clicked again
     if (currentTooltip !== word) return;
-    showErrorTooltip('Extension context disconnected. Please refresh this page (F5).');
-    return;
-  }
 
-  // Guard against stale response if user double-clicked again
-  if (currentTooltip !== word) return;
-
-  if (response?.ok) {
-    showDefinitionTooltip(response.data, word, sentence, anchorRect);
-  } else {
-    const msg = response?.error?.code === 'NO_TOKEN'
-      ? 'Sign in to WordCatch via extension popup to look up words.'
-      : (response?.error?.message ?? 'Lookup failed.');
-    showErrorTooltip(msg);
+    if (response?.ok) {
+      showDefinitionTooltip(response.data, word, sentence, anchorRect);
+    } else {
+      const msg = response?.error?.code === 'NO_TOKEN'
+        ? 'Sign in to WordCatch via extension popup to look up words.'
+        : (response?.error?.message ?? 'Lookup failed.');
+      showErrorTooltip(msg);
+    }
+  } catch (globalErr) {
+    console.warn('[WordCatch] Ignored selection error:', globalErr);
   }
 });
 
