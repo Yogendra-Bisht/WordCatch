@@ -66,6 +66,14 @@ app.use((_req, res) => {
   sendError(res, 404, 'NOT_FOUND', 'Route not found');
 });
 
+// ── Global process exception safety ─────────────────────────────────────────
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
 // ── Global error handler ───────────────────────────────────────────────────
 app.use((err, _req, res, _next) => {
   console.error('Unhandled error:', err);
