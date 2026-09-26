@@ -28,7 +28,14 @@ const DICT_API_BASE = 'https://api.dictionaryapi.dev/api/v2/entries/en';
  */
 async function fetchFromDictAPI(candidate) {
   try {
-    const res = await fetch(`${DICT_API_BASE}/${encodeURIComponent(candidate)}`);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    const res = await fetch(`${DICT_API_BASE}/${encodeURIComponent(candidate)}`, {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
     if (!res.ok) return null; // 404 or other HTTP error
 
     const json = await res.json();
@@ -47,7 +54,7 @@ async function fetchFromDictAPI(candidate) {
 
     return meanings.length > 0 ? meanings : null;
   } catch {
-    return null; // network error — treat as miss
+    return null; // network error or timeout — treat as miss
   }
 }
 

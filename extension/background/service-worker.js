@@ -59,9 +59,12 @@ async function apiFetch(path, options = {}) {
 
   let response;
   try {
-    response = await fetch(`${API_BASE}${path}`, { ...options, headers });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    response = await fetch(`${API_BASE}${path}`, { ...options, headers, signal: controller.signal });
+    clearTimeout(timeoutId);
   } catch (e) {
-    return err('NETWORK_ERROR', 'Could not reach the WordCatch server. Check your connection.');
+    return err('NETWORK_ERROR', 'Could not reach the WordCatch server. Ensure npm run dev is running.');
   }
 
   // Handle 401 — clear token, signal re-auth (FR-6.4)
@@ -87,9 +90,12 @@ async function publicFetch(path, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers ?? {}) };
   let response;
   try {
-    response = await fetch(`${API_BASE}${path}`, { ...options, headers });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    response = await fetch(`${API_BASE}${path}`, { ...options, headers, signal: controller.signal });
+    clearTimeout(timeoutId);
   } catch {
-    return err('NETWORK_ERROR', 'Could not reach the WordCatch server.');
+    return err('NETWORK_ERROR', 'Could not reach the WordCatch server. Ensure npm run dev is running.');
   }
 
   let body;
