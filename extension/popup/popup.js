@@ -169,6 +169,14 @@ async function loadVocab(from, to) {
   vocabList.querySelectorAll('.vocab-del-btn').forEach((btn) => {
     btn.addEventListener('click', () => handleDelete(btn.dataset.id));
   });
+
+  // Attach source URL handlers — open in new tab (FR-5.3)
+  vocabList.querySelectorAll('.vocab-source').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      chrome.tabs.create({ url: link.dataset.url });
+    });
+  });
 }
 
 function renderCard(entry) {
@@ -177,6 +185,15 @@ function renderCard(entry) {
   const pos     = wordDoc?.meanings?.[0]?.partOfSpeech ?? '';
   const def     = wordDoc?.meanings?.[0]?.definitions?.[0]?.definition ?? '';
   const ctx     = entry.sentenceContext ? `"${entry.sentenceContext.slice(0, 80)}…"` : '';
+  const url     = entry.sourceUrl || '';
+
+  // Display a truncated hostname when a source URL is available (FR-5.3)
+  let sourceHtml = '';
+  if (url) {
+    let displayUrl;
+    try { displayUrl = new URL(url).hostname; } catch { displayUrl = url.slice(0, 30); }
+    sourceHtml = `<a class="vocab-source" href="${escHtml(url)}" data-url="${escHtml(url)}" title="${escHtml(url)}">↗ ${escHtml(displayUrl)}</a>`;
+  }
 
   return `
     <div class="vocab-card">
@@ -185,6 +202,7 @@ function renderCard(entry) {
         ${pos ? `<div class="vocab-pos">${escHtml(pos)}</div>` : ''}
         ${def ? `<div class="vocab-def">${escHtml(def)}</div>` : '<div class="vocab-def" style="color:var(--border);font-style:italic">No definition</div>'}
         ${ctx ? `<div class="vocab-context">${escHtml(ctx)}</div>` : ''}
+        ${sourceHtml}
       </div>
       <button class="vocab-del-btn" data-id="${entry._id}" title="Remove" aria-label="Remove ${escHtml(word)}">✕</button>
     </div>`;

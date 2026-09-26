@@ -12,7 +12,7 @@
  * Every invocation reads auth state fresh from chrome.storage (§3.4).
  */
 
-const API_BASE = 'https://your-api-domain.com'; // ← set your domain here
+const API_BASE = 'http://localhost:3000'; // DEV: swap to https://your-domain.com for production
 
 // ── Storage helpers ───────────────────────────────────────────────────────────
 

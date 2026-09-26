@@ -322,6 +322,23 @@ body {
   text-overflow: ellipsis;
 }
 
+.vocab-source {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 3px;
+  display: inline-block;
+  opacity: 0.7;
+  transition: opacity var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.vocab-source:hover { opacity: 1; text-decoration: underline; }
+
 .vocab-del-btn {
   background: none;
   border: none;

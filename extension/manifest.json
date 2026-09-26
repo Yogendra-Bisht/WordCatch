@@ -39,7 +39,7 @@
   ],
 
   "host_permissions": [
-    "https://your-api-domain.com/*"
+    "http://localhost:3000/*"
   ],
 
   "content_security_policy": {
