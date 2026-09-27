@@ -269,15 +269,19 @@ function showDefinitionTooltip(data, capturedForm, sentence, anchorRect) {
     ${bodyHtml}
     <div class="wc-status" id="wc-status"></div>
     <div class="wc-actions">
-      <button class="wc-btn wc-btn-save" id="wc-save">Save to vocab</button>
+      ${found ? `<button class="wc-btn wc-btn-save" id="wc-save">Save to vocab</button>` : ''}
       <button class="wc-btn wc-btn-close" id="wc-close">Dismiss</button>
     </div>
   `;
 
   tip.querySelector('#wc-close').addEventListener('click', dismissTooltip);
-  tip.querySelector('#wc-save').addEventListener('click', () => {
-    handleSave(data, capturedForm, sentence, anchorRect);
-  });
+  const saveBtn = tip.querySelector('#wc-save');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      handleSave(data, capturedForm, sentence, anchorRect);
+    });
+  }
+
 
   // Auto-dismiss after 12 seconds (FR-7.3)
   clearTimeout(dismissTimer);
