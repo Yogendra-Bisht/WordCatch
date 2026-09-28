@@ -2,8 +2,12 @@
 *.zip
 store-assets/
 
+# Showcase & draft post notes
+SHOWCASE.md
+
 # Dependency directories
 node_modules/
+
 
 # Environment variable files
 .env
