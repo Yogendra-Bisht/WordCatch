@@ -1,8 +1,14 @@
-# WordCatch
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Edge Add-on](https://img.shields.io/badge/Microsoft_Edge-In_Review-blue.svg)](PUBLISHING.md)
+[![Backend Status](https://img.shields.io/badge/Backend-Render_Live-brightgreen.svg)](https://wordcatch.onrender.com/health)
 
 > **Double-click any word. Get the meaning. Build your vocabulary.**
 
-WordCatch is a Chrome extension that turns passive reading into active vocabulary building. Double-click any word on any webpage to instantly look up its definition, then save it to a personal, date-stamped vocabulary list — eliminating the "copy → open dictionary → search → write down" friction.
+WordCatch is a browser extension (Manifest V3) that turns passive reading into active vocabulary building. Double-click any word on any webpage to instantly look up its definition, then save it to a personal, date-stamped vocabulary list — eliminating the "copy → open dictionary → search → write down" friction.
+
+- **Live API Endpoint:** [`https://wordcatch.onrender.com`](https://wordcatch.onrender.com/health)
+- **Privacy Policy:** [https://yogendra-bisht.github.io/WordCatch/privacy.html](https://yogendra-bisht.github.io/WordCatch/privacy.html)
+- **Microsoft Edge Store ID:** `0RDCKB46HZHL` (Pending Store Review)
 
 ---
 
@@ -280,4 +286,4 @@ This project is built against a formal [Software Requirements Specification (v2.
 
 ## 📄 License
 
-This project is developed as a portfolio piece by [Yogendra Bisht](https://github.com/Yogendra-Bisht).
+This project is licensed under the [MIT License](LICENSE) — created by [Yogendra Bisht](https://github.com/Yogendra-Bisht). Feel free to use, modify, and build upon it!

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yogendra-bisht.github.io/WordCatch/sitemap.xml

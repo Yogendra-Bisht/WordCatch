@@ -4,6 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WordCatch - Instant Vocabulary Builder Extension</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Double-click any word on any webpage to instantly look up definitions and save it to your personal vocabulary list." />
+  <meta name="keywords" content="wordcatch, vocabulary builder, dictionary extension, edge extension, chrome extension, word lookup" />
+  <meta name="author" content="Yogendra Bisht" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://yogendra-bisht.github.io/WordCatch/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yogendra-bisht.github.io/WordCatch/" />
+  <meta property="og:title" content="WordCatch - Instant Vocabulary Builder Extension" />
+  <meta property="og:description" content="Double-click any word on any webpage to instantly look up definitions and save it to your personal vocabulary list." />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WordCatch - Instant Vocabulary Builder Extension" />
+  <meta name="twitter:description" content="Double-click any word on any webpage to instantly look up definitions and save it to your personal vocabulary list." />
+
   <style>
     :root {
       --bg: #0f172a;
@@ -26,7 +45,7 @@
       min-height: 100vh;
     }
     .container {
-      max-width: 600px;
+      max-width: 650px;
       background: var(--card-bg);
       padding: 2.5rem;
       border-radius: 12px;
@@ -34,12 +53,23 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
-    h1 { font-size: 2.2rem; color: var(--accent); margin-bottom: 0.5rem; }
+    h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
     p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.1rem; }
+    .status-badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
     .nav-links {
       display: flex;
       gap: 1rem;
       justify-content: center;
+      flex-wrap: wrap;
       margin-top: 2rem;
     }
     .btn {
@@ -63,6 +93,7 @@
 <body>
   <div class="container">
     <h1>WordCatch 📖</h1>
+    <div class="status-badge">Submitted to Microsoft Edge Add-ons Store</div>
     <p>Double-click any word on any webpage to instantly look up definitions and build your personal vocabulary list.</p>
     <div class="nav-links">
       <a href="privacy.html" class="btn">Privacy Policy</a>
