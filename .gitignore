@@ -1,0 +1,10 @@
+# Build packages & store assets
+*.zip
+store-assets/
+
+# Dependency directories
+node_modules/
+
+# Environment variable files
+.env
+.env.local
