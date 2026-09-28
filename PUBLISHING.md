@@ -1,7 +1,18 @@
 # WordCatch — Publishing Guide
 
 > **Last updated:** 2026-09-28
-> **Status:** Deployment complete ✅ — Publishing to Edge Add-ons Store remaining
+> **Status:** Submitted to Microsoft Edge Add-ons Store 🎉 (Pending Review)
+
+---
+
+## Microsoft Edge Extension Identity 🆔
+
+| Field | Value |
+|---|---|
+| **Store ID** | `0RDCKB46HZHL` |
+| **CRX ID (Extension ID)** | `phgiaghmefmfigmhahigfdlgacifeglb` |
+| **Product ID** | `7eea8cbc-42ec-492a-9746-f4eaddbbb4f7` |
+| **Store Status** | In Review (1–7 business days) |
 
 ---
 
