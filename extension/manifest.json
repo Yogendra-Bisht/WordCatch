@@ -39,7 +39,7 @@
   ],
 
   "host_permissions": [
-    "http://localhost:3000/*"
+    "https://wordcatch.onrender.com/*"
   ],
 
   "content_security_policy": {
