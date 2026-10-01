@@ -1,7 +1,7 @@
 # WordCatch — Publishing Guide
 
-> **Last updated:** 2026-09-28
-> **Status:** Submitted to Microsoft Edge Add-ons Store 🎉 (Pending Review)
+> **Last updated:** 2026-10-01
+> **Status:** Published & Live on Microsoft Edge Add-ons Store 🎉
 
 ---
 
@@ -9,10 +9,11 @@
 
 | Field | Value |
 |---|---|
+| **Store Listing** | [WordCatch on Edge Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/phgiaghmefmfigmhahigfdlgacifeglb) |
 | **Store ID** | `0RDCKB46HZHL` |
 | **CRX ID (Extension ID)** | `phgiaghmefmfigmhahigfdlgacifeglb` |
 | **Product ID** | `7eea8cbc-42ec-492a-9746-f4eaddbbb4f7` |
-| **Store Status** | In Review (1–7 business days) |
+| **Store Status** | Published & Live ✅ |
 
 ---
 
