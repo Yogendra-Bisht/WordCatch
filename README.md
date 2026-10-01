@@ -1,14 +1,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Edge Add-on](https://img.shields.io/badge/Microsoft_Edge-In_Review-blue.svg)](PUBLISHING.md)
+[![Edge Add-on](https://img.shields.io/badge/Microsoft_Edge-Live-brightgreen.svg)](https://microsoftedge.microsoft.com/addons/detail/phgiaghmefmfigmhahigfdlgacifeglb)
 [![Backend Status](https://img.shields.io/badge/Backend-Render_Live-brightgreen.svg)](https://wordcatch.onrender.com/health)
 
 > **Double-click any word. Get the meaning. Build your vocabulary.**
 
-WordCatch is a browser extension (Manifest V3) that turns passive reading into active vocabulary building. Double-click any word on any webpage to instantly look up its definition, then save it to a personal, date-stamped vocabulary list — eliminating the "copy → open dictionary → search → write down" friction.
+WordCatch is a browser extension (Manifest V3) that turns passive reading into active vocabulary building. Double-click any word on any webpage to instantly look up its definition, then save it to [...]
 
 - **Live API Endpoint:** [`https://wordcatch.onrender.com`](https://wordcatch.onrender.com/health)
 - **Privacy Policy:** [https://yogendra-bisht.github.io/WordCatch/privacy.html](https://yogendra-bisht.github.io/WordCatch/privacy.html)
-- **Microsoft Edge Store ID:** `0RDCKB46HZHL` (Pending Store Review)
+- **Microsoft Edge Store:** [https://microsoftedge.microsoft.com/addons/detail/phgiaghmefmfigmhahigfdlgacifeglb](https://microsoftedge.microsoft.com/addons/detail/phgiaghmefmfigmhahigfdlgacifeglb)
 
 ---
 
@@ -58,14 +58,14 @@ WordCatch is a browser extension (Manifest V3) that turns passive reading into a
                                     │  /health            │
                                     └─────────┬──────────┘
                                               │
-                              ┌───────────────┼───────────────┐
-                              ▼                               ▼
-                    ┌──────────────┐              ┌────────────────┐
-                    │ MongoDB Atlas│              │ Free Dictionary │
-                    │  • users     │              │      API        │
-                    │  • words     │              │  (fallback for  │
-                    │  • user_vocab│              │   cache misses) │
-                    └──────────────┘              └────────────────┘
+                                ┌───────────────┼───────────────┐
+                                ▼                               ▼
+                      ┌──────────────┐              ┌────────────────┐
+                      │ MongoDB Atlas│              │ Free Dictionary │
+                      │  • users     │              │      API        │
+                      │  • words     │              │  (fallback for  │
+                      │  • user_vocab│              │   cache misses) │
+                      └──────────────┘              └────────────────┘
 ```
 
 ### Context Separation (Manifest V3)
@@ -280,7 +280,7 @@ Response envelope: `{ ok: true, data: {...} }` or `{ ok: false, error: { code, m
 
 ## 📋 SRS Compliance
 
-This project is built against a formal [Software Requirements Specification (v2.0)](SRS_WordCatch_v2.md). All functional requirements (FR-1 through FR-7) and non-functional requirements (NFR-1 through NFR-11) are implemented. See the SRS for full details.
+This project is built against a formal [Software Requirements Specification (v2.0)](SRS_WordCatch_v2.md). All functional requirements (FR-1 through FR-7) and non-functional requirements (NFR-1 th[...]
 
 ---
 
